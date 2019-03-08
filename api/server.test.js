@@ -28,7 +28,7 @@ describe('server.js', () => {
 	});
 
 	describe('GET /api/games', () => {
-		test('should return 200', async () => {
+		test('should return status 200', async () => {
 			const res = await request(server).get('/api/games');
 			expect(res.status).toBe(200);
 		});
@@ -42,7 +42,7 @@ describe('server.js', () => {
 			await db('games').truncate();
 		});
 
-		test('should return 201', async () => {
+		test('should return status 201', async () => {
 			const game = { name: 'Destiny', genre: 'no idea', releaseYear: 2010 };
 			const res = await request(server)
 				.post('/api/games')
@@ -56,16 +56,25 @@ describe('server.js', () => {
 				.send(game);
 			expect(res.type).toBe('application/json');
 		});
-		test.skip('should return "fido"', async () => {
-			const damn = { name: 'fido' };
+		test.skip('should return "Destiny"', async () => {
+			const game = { name: 'Destiny', genre: 'no idea', releaseYear: 2010 };
 			const result = await request(server)
 				.post('/api/games')
-				.send(damn);
+				.send(game);
 
-			expect(result.name).toBe('fido');
+			expect(result.name).toBe('Destiny');
+		});
+
+		test('should return status 422 required data not present', async () => {
+			const game = { name: 'street figher' };
+			const res = await request(server)
+				.post('/api/games')
+				.send(game);
+
+			expect(res.status).toBe(422);
 		});
 	});
-	describe('DELETE', () => {
+	describe.skip('DELETE', () => {
 		test('response should be 204', async () => {
 			const game = { name: 'Destiny', genre: 'no idea', releaseYear: 2010 };
 			const res = await request(server)

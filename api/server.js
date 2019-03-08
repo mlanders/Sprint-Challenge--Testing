@@ -17,8 +17,19 @@ server.get('/api/games', async (req, res) => {
 });
 
 server.post('/api/games', async (req, res) => {
-	const games = await Games.insert(req.body);
-	res.status(201).json(games);
+	try {
+		const { name, genre } = req.body;
+		console.log(name, genre);
+
+		if (name & genre) {
+			console.log('if');
+			res.status(422).end();
+		} else {
+			console.log('else');
+			const games = await Games.insert(req.body);
+			res.status(201).json(games);
+		}
+	} catch {}
 });
 
 server.delete('/api/games', async (req, res) => {

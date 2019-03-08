@@ -6,6 +6,7 @@ module.exports = {
 	remove,
 	getAll,
 	findById,
+	findByName,
 };
 
 async function insert(game) {
@@ -30,5 +31,13 @@ function getAll() {
 }
 
 function findById(id) {
-	return db('games').where({ id }).first;
+	return db('games')
+		.where({ id })
+		.first();
+}
+
+function findByName(name) {
+	return db('games')
+		.where({ name })
+		.first();
 }

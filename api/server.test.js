@@ -42,6 +42,10 @@ describe('server.js', () => {
 		});
 	});
 	describe('POST', () => {
+		afterEach(async () => {
+			await db('games').truncate();
+		});
+
 		test('should return status 201', async () => {
 			const game = { name: 'Destiny', genre: 'no idea', releaseYear: 2010 };
 			const res = await request(server)
@@ -56,6 +60,19 @@ describe('server.js', () => {
 				.send(game);
 
 			expect(res.status).toBe(422);
+		});
+		test.skip('should return status 405 for duplicate game name', async () => {
+			const game = { name: 'Destiny', genre: 'no idea', releaseYear: 2010 };
+			const game1 = await request(server)
+				.post('/api/games')
+				.send(game);
+			expect(res.status).toBe(201);
+
+			const game2 = await request(server)
+				.post('/api/games')
+				.send(game);
+
+			expect(res.status).toBe(405);
 		});
 
 		test('should return JSON', async () => {

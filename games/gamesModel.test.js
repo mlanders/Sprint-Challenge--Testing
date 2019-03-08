@@ -10,6 +10,12 @@ describe('gamesModel Tests', () => {
 		const res = await Games.insert(newGame);
 		expect(res.name).toBe('Destiny');
 	});
+	test('inserting two gmes', async () => {
+		Games.insert({ name: 'Destiny', genre: 'no idea' });
+		Games.insert({ name: 'Destiny', genre: 'no idea' });
+		const games = await db('games');
+		expect(games).toHaveLength(2);
+	});
 	test('remove a game', async () => {
 		const id = await Games.insert({ name: 'Destiny', genre: 'no idea', releaseYear: 2010 });
 		const res = await Games.remove(id);

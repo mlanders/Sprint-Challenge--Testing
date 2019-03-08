@@ -24,7 +24,7 @@ server.post('/api/games', async (req, res) => {
 			const game = await Games.insert(req.body);
 			res.status(201).json(game);
 		} else {
-			res.status(422).end();
+			res.status(422);
 		}
 	} catch (err) {
 		res.status(500);

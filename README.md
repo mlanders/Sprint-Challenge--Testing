@@ -26,11 +26,11 @@ Demonstrate your understanding of this week's concepts by answering the followin
 
 1. In Jest, what are the differences between `describe()` and `it()` globals, and what are good uses for them?
 
-    - describe() groups together related texts. it() can describe a test executes the function for the test
+    - describe() groups together related texts. it() can describe a test and executes the function for the test
 
 1. What is the point of `Test Driven Development`? What do you think about this approach?
 
-    - Allows for a short development cycle. Allows you to write initial failing tests so that you write a function
+    - Allows for a short development cycle. Allows you to write initial failing tests so that you write a function. I think it can be a good way of learning to compartmentalize your code so it's easy to test and fix in the future
 
 1. Mention three types of automated tests.
     - Unit test, integration test, component test, snapshot testing

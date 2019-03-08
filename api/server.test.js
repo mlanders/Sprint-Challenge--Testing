@@ -54,12 +54,12 @@ describe('server.js', () => {
 			expect(res.status).toBe(201);
 		});
 		test('should return status 422 when required data not present', async () => {
-			const game = { name: 'street figher' };
+			const ugh = { name: 'street figher' };
 			const res = await request(server)
 				.post('/api/games')
-				.send(game);
+				.send(ugh);
 
-			expect(res.status).toBe(422);
+			expect(res.status).toBe(422); // no clue why this one is broken
 		});
 		test.skip('should return status 405 for duplicate game name', async () => {
 			const game = { name: 'Destiny', genre: 'no idea', releaseYear: 2010 };
@@ -88,7 +88,7 @@ describe('server.js', () => {
 			const game = await request(server)
 				.post('/api/games')
 				.send(newGame);
-			expect(game.body.name).toMatch(/destiny/i); // no idea why this one is failing
+			expect(game.body.name).toMatch(/destiny/i);
 		});
 	});
 });

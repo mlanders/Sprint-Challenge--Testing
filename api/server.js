@@ -20,7 +20,7 @@ server.post('/api/games', async (req, res) => {
 	try {
 		const { name, genre } = req.body;
 
-		if (name && genre) {
+		if (name !== undefined && genre !== undefined) {
 			const game = await Games.insert(req.body);
 			res.status(201).json(game);
 		} else {

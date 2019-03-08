@@ -15,9 +15,4 @@ describe('gamesModel Tests', () => {
 		const res = await Games.remove(id);
 		expect(res).toBe(0);
 	});
-	test.skip('remove a game', async () => {
-		const id = await Games.insert({ name: 'fido' });
-		const res = await Games.remove(id);
-		expect(res).toBe(0);
-	});
 });

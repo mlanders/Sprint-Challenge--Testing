@@ -12,24 +12,23 @@ server.get('/', (req, res) => {
 });
 
 server.get('/api/games', async (req, res) => {
-	const games = await db('games');
-	res.status(200).json({ games });
+	const games = await Games.getAll();
+	res.status(200).json(games);
 });
 
 server.post('/api/games', async (req, res) => {
 	try {
 		const { name, genre } = req.body;
-		console.log(name, genre);
 
-		if (name & genre) {
-			console.log('if');
-			res.status(422).end();
+		if (name && genre) {
+			const game = await Games.insert(req.body);
+			res.status(201).json(game);
 		} else {
-			console.log('else');
-			const games = await Games.insert(req.body);
-			res.status(201).json(games);
+			res.status(422).end();
 		}
-	} catch {}
+	} catch (err) {
+		res.status(500);
+	}
 });
 
 server.delete('/api/games', async (req, res) => {

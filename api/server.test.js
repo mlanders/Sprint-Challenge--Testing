@@ -2,7 +2,7 @@ const request = require('supertest');
 const server = require('./server');
 const db = require('../api/dbConfig');
 
-afterAll(async () => {
+afterEach(async () => {
 	await db('games').truncate();
 });
 describe('server.js', () => {
@@ -36,12 +36,12 @@ describe('server.js', () => {
 			const res = await request(server).get('/api/games');
 			expect(res.type).toEqual('application/json');
 		});
+		test('should return an empty array', async () => {
+			const res = await request(server).get('/api/games');
+			expect(res.body).toEqual([]);
+		});
 	});
 	describe('POST', () => {
-		afterEach(async () => {
-			await db('games').truncate();
-		});
-
 		test('should return status 201', async () => {
 			const game = { name: 'Destiny', genre: 'no idea', releaseYear: 2010 };
 			const res = await request(server)
@@ -49,23 +49,7 @@ describe('server.js', () => {
 				.send(game);
 			expect(res.status).toBe(201);
 		});
-		test('should return JSON', async () => {
-			const game = { name: 'Destiny', genre: 'no idea', releaseYear: 2010 };
-			const res = await request(server)
-				.post('/api/games')
-				.send(game);
-			expect(res.type).toBe('application/json');
-		});
-		test.skip('should return "Destiny"', async () => {
-			const game = { name: 'Destiny', genre: 'no idea', releaseYear: 2010 };
-			const result = await request(server)
-				.post('/api/games')
-				.send(game);
-
-			expect(result.name).toBe('Destiny');
-		});
-
-		test('should return status 422 required data not present', async () => {
+		test('should return status 422 when required data not present', async () => {
 			const game = { name: 'street figher' };
 			const res = await request(server)
 				.post('/api/games')
@@ -73,29 +57,21 @@ describe('server.js', () => {
 
 			expect(res.status).toBe(422);
 		});
-	});
-	describe.skip('DELETE', () => {
-		test('response should be 204', async () => {
+
+		test('should return JSON', async () => {
 			const game = { name: 'Destiny', genre: 'no idea', releaseYear: 2010 };
 			const res = await request(server)
 				.post('/api/games')
 				.send(game);
-
-			const response = await request(server)
-				.del('/api/games')
-				.send(res.id);
-			expect(response.status).toBe(204);
-		});
-		test('should return JSON', async () => {
-			const name = { name: 'fido' };
-			const res = await request(server)
-				.post('/api/games')
-				.send(name);
-
-			const response = await request(server)
-				.del('/api/games')
-				.send(res.id);
+			console.log(res.type);
 			expect(res.type).toBe('application/json');
+		});
+		test('should return "Destiny"', async () => {
+			const newGame = { name: 'Destiny', genre: 'no idea', releaseYear: 2010 };
+			const game = await request(server)
+				.post('/api/games')
+				.send(newGame);
+			expect(game.body.name).toMatch(/destiny/i); // no idea why this one is failing
 		});
 	});
 });

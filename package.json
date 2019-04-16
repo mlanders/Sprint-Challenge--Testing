@@ -1,28 +1,41 @@
 {
-	"name": "testing-challenge",
+	"name": "testingserver",
 	"version": "1.0.0",
-	"description": "Testing Sprint Challenge",
-	"main": "index.js",
+	"description": "Server Testing Project",
+	"main": "server.js",
 	"scripts": {
 		"test": "jest --watch --verbose",
-		"start": "nodemon index.js"
+		"server": "node index.js"
+	},
+	"jest": {
+		"testEnvironment": "node"
 	},
 	"repository": {
 		"type": "git",
-		"url": "git+https://github.com/LambdaSchool/Sprint-Challenge--Testing.git"
+		"url": "git+https://github.com/LambdaSchool/Server-Testing.git"
 	},
 	"keywords": [],
-	"author": "Lambda School",
+	"author": "",
 	"license": "ISC",
 	"bugs": {
-		"url": "https://github.com/LambdaSchool/Sprint-Challenge--Testing/issues"
+		"url": "https://github.com/LambdaSchool/Server-Testing/issues"
 	},
-	"homepage": "https://github.com/LambdaSchool/Sprint-Challenge--Testing#readme",
-	"dependencies": {
-		"express": "^4.16.4"
-	},
+	"homepage": "https://github.com/LambdaSchool/Server-Testing#readme",
 	"devDependencies": {
 		"jest": "^23.6.0",
+		"nodemon": "^1.18.10",
 		"supertest": "^3.3.0"
+	},
+	"dependencies": {
+		"bcryptjs": "^2.4.3",
+		"cors": "^2.8.5",
+		"dotenv": "^6.2.0",
+		"express": "^4.16.4",
+		"faker": "^4.1.0",
+		"helmet": "^3.15.1",
+		"jsonwebtoken": "^8.5.0",
+		"knex": "^0.16.3",
+		"morgan": "^1.9.1",
+		"sqlite3": "^4.0.6"
 	}
 }
